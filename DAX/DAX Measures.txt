@@ -3,23 +3,22 @@
 // =============================================
 
 Total Listings = 
-COUNTROWS('Listings')
+DISTINCTCOUNT(airbnb_cleaned[id])
 
 Available Listings % = 
 DIVIDE(
-    CALCULATE([Total Listings], 'Listings'[availability_365] > 0),
-    [Total Listings],
-    0
+    AVERAGE(airbnb_cleaned[availability 365]),
+    365
 )
 
 Average Availability days = 
-AVERAGE('Listings'[availability_365])
+AVERAGE(airbnb_cleaned[availability 365])
 
 Average Minimum Nights = 
-AVERAGE('Listings'[minimum_nights])
+AVERAGE(airbnb_cleaned[minimum nights])
 
 Average Construction Year = 
-AVERAGE('Listings'[Construction year])
+AVERAGE(airbnb_cleaned[Construction year])
 
 
 // =============================================
@@ -27,10 +26,10 @@ AVERAGE('Listings'[Construction year])
 // =============================================
 
 Average Price = 
-AVERAGE('Listings'[price])
+AVERAGE(airbnb_cleaned[price])
 
 Average Service Fee = 
-AVERAGE('Listings'[service fee])
+AVERAGE(airbnb_cleaned[service fee])
 
 
 // =============================================
@@ -38,16 +37,17 @@ AVERAGE('Listings'[service fee])
 // =============================================
 
 Total Hosts = 
-DISTINCTCOUNT('Listings'[host_id])
+DISTINCTCOUNT(airbnb_cleaned[host id2])
 
 Average Listings Per Host = 
-DIVIDE([Total Listings], [Total Hosts], 0)
+DIVIDE( [Total Listings], [Total Hosts])
 
 Verified Hosts = 
-CALCULATE([Total Hosts], 'Listings'[host_identity_verified] = "verified")
+CALCULATE( DISTINCTCOUNT(airbnb_cleaned[host id]),  airbnb_cleaned[host_identity_verified] = "verified")
 
 Verified Hosts % = 
-DIVIDE([Verified Hosts], [Total Hosts], 0)
+DIVIDE( [Verified Hosts], [Total Hosts],  0)
+
 
 
 // =============================================
@@ -55,19 +55,19 @@ DIVIDE([Verified Hosts], [Total Hosts], 0)
 // =============================================
 
 Average Number of Reviews = 
-AVERAGE('Listings'[number_of_reviews])
+AVERAGE(airbnb_cleaned[number of reviews])
 
 Average Rating ⭐ = 
-AVERAGE('Listings'[review rate number])
+AVERAGE(airbnb_cleaned[review rate number])
 
 Listings With Reviews = 
-CALCULATE([Total Listings], 'Listings'[number_of_reviews] > 0)
+DIVIDE([Listings With Reviews], [Total Listings],  0)
 
 Listings Without Reviews = 
-CALCULATE([Total Listings], ISBLANK('Listings'[number_of_reviews]) || 'Listings'[number_of_reviews] = 0)
+CALCULATE(COUNTROWS(airbnb_cleaned),airbnb_cleaned[review_status] = "No Reviews")
 
 Listings With Reviews % = 
-DIVIDE([Listings With Reviews], [Total Listings], 0)
+DIVIDE( [Listings With Reviews],   [Total Listings], 0)
 
 
 // =============================================
@@ -76,35 +76,71 @@ DIVIDE([Listings With Reviews], [Total Listings], 0)
 
 // Instant Bookable
 Instant Bookable Listings = 
-CALCULATE([Total Listings], 'Listings'[instant_bookable] = TRUE())
+CALCULATE(
+    COUNTROWS(airbnb_cleaned),
+    airbnb_cleaned[instant_bookable] = TRUE()
+)
 
 Instant Bookable % = 
-DIVIDE([Instant Bookable Listings], [Total Listings], 0)
+DIVIDE(
+    [Instant Bookable Listings],
+    [Total Listings],
+    0
+)
 
 // Pets Rule
 Listings with Pets Rule = 
-CALCULATE([Total Listings], 'Listings'[Pets Rule] = 1)
+Rule = 
+CALCULATE(
+    COUNTROWS(house_rules_table),
+    house_rules_table[No Pets] = TRUE()
+)
 
 Pets Rule % = 
-DIVIDE([Listings with Pets Rule], [Total Listings], 0)
+DIVIDE(
+    [Listings with Pets Rule],
+    [Total Listings],
+    0
+)
 
 // No Parties
 No Parties Listings = 
-CALCULATE([Total Listings], 'Listings'[No Parties] = 1)
+CALCULATE(
+    COUNTROWS(house_rules_table),
+    house_rules_table[No Parties] = TRUE()
+)
 
 No Parties % = 
-DIVIDE([No Parties Listings], [Total Listings], 0)
+DIVIDE(
+    [No Parties Listings],
+    [Total Listings],
+    0
+)
 
 // No Smoking
 No Smoking Listings = 
-CALCULATE([Total Listings], 'Listings'[No Smoking] = 1)
+CALCULATE(
+    COUNTROWS(house_rules_table),
+    house_rules_table[No Smoking] = TRUE()
+)
 
 No Smoking % = 
-DIVIDE([No Smoking Listings], [Total Listings], 0)
+DIVIDE(
+    [No Smoking Listings],
+    [Total Listings],
+    0
+)
 
 // Quiet Hours
 Quiet Hours Listings = 
-CALCULATE([Total Listings], 'Listings'[Quiet Hours] = 1)
+CALCULATE(
+    COUNTROWS(house_rules_table),
+    house_rules_table[Quiet Hours] = TRUE()
+)
 
 Quiet Hours % = 
-DIVIDE([Quiet Hours Listings], [Total Listings], 0)
+DIVIDE(
+    [Quiet Hours Listings],
+    [Total Listings],
+    0
+)
