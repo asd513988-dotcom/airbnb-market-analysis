@@ -33,19 +33,39 @@
 | Page | Description |
 | --- | --- |
 | **Executive Overview** | Summary of overall listings, host verification rates, and top-level KPIs. |
+
+
 <img width="1316" height="812" alt="Excutive Overview" src="https://github.com/user-attachments/assets/94b70c0f-153d-45e2-88e9-b2736dd706e7" />
 
+
+
+
 | **Reviews & Availability** | Guest review patterns, host activity metrics, and rating distributions. |
+
+
 <img width="1920" height="1080" alt="Review   Availability" src="https://github.com/user-attachments/assets/5c1fea89-12ec-4fc1-9757-b6595c2b15c1" />
 
-| **House Rules** | Guest review patterns, host activity metrics, and rating distributions. |
+
+
+| **House Rules** | House Rules |
+
+
 <img width="1308" height="737" alt="House rules" src="https://github.com/user-attachments/assets/2035b878-4794-48bd-ae03-ada80dd89d29" />
 
+
+
 | **Pricing Analysis** | Price distribution across borough groups, room types, and service fee correlations. |
+
+
 <img width="1306" height="736" alt="Pricing Analysis" src="https://github.com/user-attachments/assets/0c46b8f4-cf23-4222-9030-c070ae4dc340" />
 
+
+
 | **Drill-Through Details** | In-depth breakdown per specific neighborhood and listing rules. |
+
+
 <img width="1920" height="1080" alt="neighbourhood group details" src="https://github.com/user-attachments/assets/54c80cd8-be2d-4199-8b0a-ada54d472ff2" />
+
 
 
 ---
