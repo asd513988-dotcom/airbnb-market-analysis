@@ -1,0 +1,110 @@
+// =============================================
+// 1. Core & Listing Metrics
+// =============================================
+
+Total Listings = 
+COUNTROWS('Listings')
+
+Available Listings % = 
+DIVIDE(
+    CALCULATE([Total Listings], 'Listings'[availability_365] > 0),
+    [Total Listings],
+    0
+)
+
+Average Availability days = 
+AVERAGE('Listings'[availability_365])
+
+Average Minimum Nights = 
+AVERAGE('Listings'[minimum_nights])
+
+Average Construction Year = 
+AVERAGE('Listings'[Construction year])
+
+
+// =============================================
+// 2. Price & Fee Metrics
+// =============================================
+
+Average Price = 
+AVERAGE('Listings'[price])
+
+Average Service Fee = 
+AVERAGE('Listings'[service fee])
+
+
+// =============================================
+// 3. Host Metrics
+// =============================================
+
+Total Hosts = 
+DISTINCTCOUNT('Listings'[host_id])
+
+Average Listings Per Host = 
+DIVIDE([Total Listings], [Total Hosts], 0)
+
+Verified Hosts = 
+CALCULATE([Total Hosts], 'Listings'[host_identity_verified] = "verified")
+
+Verified Hosts % = 
+DIVIDE([Verified Hosts], [Total Hosts], 0)
+
+
+// =============================================
+// 4. Reviews & Rating Metrics
+// =============================================
+
+Average Number of Reviews = 
+AVERAGE('Listings'[number_of_reviews])
+
+Average Rating ⭐ = 
+AVERAGE('Listings'[review rate number])
+
+Listings With Reviews = 
+CALCULATE([Total Listings], 'Listings'[number_of_reviews] > 0)
+
+Listings Without Reviews = 
+CALCULATE([Total Listings], ISBLANK('Listings'[number_of_reviews]) || 'Listings'[number_of_reviews] = 0)
+
+Listings With Reviews % = 
+DIVIDE([Listings With Reviews], [Total Listings], 0)
+
+
+// =============================================
+// 5. Booking & House Rules Features
+// =============================================
+
+// Instant Bookable
+Instant Bookable Listings = 
+CALCULATE([Total Listings], 'Listings'[instant_bookable] = TRUE())
+
+Instant Bookable % = 
+DIVIDE([Instant Bookable Listings], [Total Listings], 0)
+
+// Pets Rule
+Listings with Pets Rule = 
+CALCULATE([Total Listings], 'Listings'[Pets Rule] = 1)
+
+Pets Rule % = 
+DIVIDE([Listings with Pets Rule], [Total Listings], 0)
+
+// No Parties
+No Parties Listings = 
+CALCULATE([Total Listings], 'Listings'[No Parties] = 1)
+
+No Parties % = 
+DIVIDE([No Parties Listings], [Total Listings], 0)
+
+// No Smoking
+No Smoking Listings = 
+CALCULATE([Total Listings], 'Listings'[No Smoking] = 1)
+
+No Smoking % = 
+DIVIDE([No Smoking Listings], [Total Listings], 0)
+
+// Quiet Hours
+Quiet Hours Listings = 
+CALCULATE([Total Listings], 'Listings'[Quiet Hours] = 1)
+
+Quiet Hours % = 
+DIVIDE([Quiet Hours Listings], [Total Listings], 0)
